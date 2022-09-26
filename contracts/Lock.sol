@@ -67,7 +67,7 @@ contract LazyNFT is ERC721URIStorage, EIP712, AccessControl {
 
   /// @notice Transfers all pending withdrawal balance to the caller. Reverts if the caller is not an authorized minter.
   function withdraw() public {
-    require(hasRole(MINTER_ROLE, msg.sender), "Only authorized minters can withdraw");
+    require( msg.sender == minter, "Only authorized minters can withdraw");
     
     // IMPORTANT: casting msg.sender to a payable address is only safe if ALL members of the minter role are payable addresses.
     address payable receiver = payable(msg.sender);
