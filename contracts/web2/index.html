@@ -13,7 +13,7 @@
     const SIGNING_DOMAIN_VERSION = "1"
     const chainId = 1
     const contractAddress = "0xa131AD247055FD2e2aA8b156A11bdEc81b9eAD95" // Put the address here from remix
-    const signer = new ethers.Wallet("f7920fec0573b639cc85180e740f047d3faa302b0bfe71c5b555bc34dd5c8431") // private key that I use for address 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
+    const signer = new ethers.Wallet(process.env.private); // private key that I use for address 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
     console.log(signer);
 
     const domain = {
@@ -34,17 +34,18 @@
         ]
       }
 
-      const signature = await signer._signTypedData(domain, types, voucher)
+      const signature = await signer._signTypedData(domain, types, voucher);
       return {
         ...voucher,
         signature
       }
     }
 
-    // async function main() {
-    //   const voucher = await createVoucher(5, 50, "uri", "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4") // the address is the address which receives the NFT
-    //   console.log(`[${voucher.tokenId}, ${voucher.price}, "${voucher.uri}", "${voucher.buyer}", "${voucher.signature}"]`)
-    // }
+
+    async function main() {
+      const voucher = await createVoucher(5, 50, "http://OdionOseiwe/", "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4") // the address is the address which receives the NFT
+      console.log(`[${voucher.tokenId}, ${voucher.price}, "${voucher.uri}", "${voucher.buyer}", "${voucher.signature}"]`)
+    }
   </script>
 </body>
 </html>
